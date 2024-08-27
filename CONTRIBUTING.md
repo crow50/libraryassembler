@@ -22,7 +22,7 @@ Thank you for your interest in contributing to LibraryAssembler! As the sole cre
 
 ## Code of Conduct
 
-To ensure a positive environment for all contributors, please adhere to the (TBD) [Code of Conduct](CODE_OF_CONDUCT.md). This will help maintain a welcoming and collaborative atmosphere.
+To ensure a positive environment for all contributors, please adhere to the [Code of Conduct](CODE_OF_CONDUCT.md). This will help maintain a welcoming and collaborative atmosphere.
 
 ## How Can I Contribute?
 
