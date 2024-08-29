@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+### Changed
+- Updated [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) link to version 1.1.0 from 1.0.0
+- Swapped verbage from Updated to Changed to be more in line with proper symantics
 
 ## [0.0.1-alpha] - 2024-08-27
 
@@ -18,6 +22,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Created [Code of Conduct](../CODE_OF_CONDUCT.md)
 - Created [Contributing Doc](../CONTRIBUTING.md)
 
-### Updated
+### Changed
 - Since [Code of Conduct](../CODE_OF_CONDUCT.md) was created, needed to correctly reference it in [Contributing Doc](../CONTRIBUTING.md)
 - Updated [README](../README.md) to reflect updated project status
