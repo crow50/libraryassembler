@@ -30,6 +30,17 @@ def test_healthcheck_endpoint(tmp_path):
     assert payload["ingestion_jobs"] == 0
 
 
+def test_homepage_returns_welcome_message(tmp_path):
+    app = create_app(build_test_config(tmp_path))
+    client = app.test_client()
+
+    response = client.get("/")
+    assert response.status_code == 200
+    payload = response.get_json()
+    assert payload["app"] == "LibraryAssembler"
+    assert "welcome" in payload["message"].lower()
+
+
 def test_init_db_cli(tmp_path):
     app = create_app(build_test_config(tmp_path))
     runner = app.test_cli_runner()
