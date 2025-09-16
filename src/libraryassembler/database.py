@@ -2,9 +2,9 @@
 from __future__ import annotations
 
 from contextlib import contextmanager
-from typing import Iterator
+from typing import Any, Iterator
 
-from flask import Flask, g
+from flask import Flask, current_app, g, has_app_context
 from sqlalchemy import Engine, create_engine
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
@@ -13,43 +13,55 @@ class Base(DeclarativeBase):
     """Base class for SQLAlchemy models."""
 
 
-_engine: Engine | None = None
-_session_factory: sessionmaker[Session] | None = None
+_EXTENSION_KEY = "libraryassembler_database"
 
 
 def init_engine(database_url: str, *, echo: bool = False) -> Engine:
-    """Initialise the global SQLAlchemy engine."""
-    global _engine
-    _engine = create_engine(database_url, echo=echo, future=True)
-    return _engine
+    """Initialise a SQLAlchemy engine for the provided database URL."""
+    return create_engine(database_url, echo=echo, future=True)
 
 
-def get_engine() -> Engine:
+def _get_state(app: Flask | None = None) -> dict[str, Any]:
+    """Return the database state stored on the Flask application."""
+
+    if app is None:
+        if not has_app_context():
+            raise RuntimeError(
+                "Database access requires an application context. Call ``create_app`` "
+                "and use ``app.app_context()`` or pass an explicit ``app`` argument."
+            )
+        app = current_app._get_current_object()
+
+    state = app.extensions.get(_EXTENSION_KEY)
+    if state is None:
+        raise RuntimeError("The SQLAlchemy engine has not been initialised for this Flask application.")
+    return state
+
+
+def get_engine(app: Flask | None = None) -> Engine:
     """Return the configured SQLAlchemy engine."""
-    if _engine is None:
-        raise RuntimeError("The SQLAlchemy engine has not been initialised.")
-    return _engine
+
+    return _get_state(app)["engine"]
 
 
-def init_session_factory(engine: Engine | None = None) -> sessionmaker[Session]:
+def init_session_factory(engine: Engine | None = None, *, app: Flask | None = None) -> sessionmaker[Session]:
     """Create a session factory tied to the provided engine."""
-    global _session_factory
-    engine = engine or get_engine()
-    _session_factory = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
-    return _session_factory
+
+    if engine is None:
+        engine = get_engine(app)
+    return sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
 
 
-def get_session_factory() -> sessionmaker[Session]:
+def get_session_factory(app: Flask | None = None) -> sessionmaker[Session]:
     """Return the configured session factory."""
-    if _session_factory is None:
-        raise RuntimeError("The SQLAlchemy session factory has not been initialised.")
-    return _session_factory
+
+    return _get_state(app)["session_factory"]
 
 
 @contextmanager
-def session_scope() -> Iterator[Session]:
+def session_scope(app: Flask | None = None) -> Iterator[Session]:
     """Provide a transactional scope around a series of operations."""
-    factory = get_session_factory()
+    factory = get_session_factory(app)
     session = factory()
     try:
         yield session
@@ -66,6 +78,12 @@ def init_app(app: Flask) -> None:
     engine = init_engine(app.config["SQLALCHEMY_DATABASE_URI"], echo=app.config.get("SQLALCHEMY_ECHO", False))
     factory = init_session_factory(engine)
 
+    app.extensions[_EXTENSION_KEY] = {"engine": engine, "session_factory": factory}
+
+    # Retain backwards compatibility with previous extension keys, if any callers expect them.
+    app.extensions["sqlalchemy_engine"] = engine
+    app.extensions["sqlalchemy_session_factory"] = factory
+
     @app.teardown_appcontext
     def cleanup_session(exception: BaseException | None = None) -> None:
         session: Session | None = g.pop("db_session", None)
@@ -80,9 +98,6 @@ def init_app(app: Flask) -> None:
                 session.rollback()
                 raise
         session.close()
-
-    app.extensions["sqlalchemy_engine"] = engine
-    app.extensions["sqlalchemy_session_factory"] = factory
 
 
 def get_session() -> Session:

@@ -30,8 +30,10 @@ def _default_secret_key() -> str:
 
 def _default_database_url() -> str:
     """Build the default database URL for a local SQLite database."""
-    base_dir = Path(os.getenv("LIBRARYASSEMBLER_HOME", Path.cwd()))
-    db_path = base_dir / _DEF_DB_FILENAME
+    package_dir = Path(__file__).resolve().parent
+    raw_home = os.getenv("LIBRARYASSEMBLER_HOME")
+    base_dir = Path(raw_home).expanduser() if raw_home else package_dir
+    db_path = (base_dir / _DEF_DB_FILENAME).resolve()
     return f"sqlite:///{db_path}"
 
 
