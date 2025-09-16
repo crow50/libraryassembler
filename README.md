@@ -45,10 +45,53 @@ If you're interested in contributing code, here's how to get started:
 
 3. **Install Dependencies** (to be determined as the project evolves):
    ```bash
-   pip install -r requirements.txt
+   pip install -e .
    ```
 
 4. **Start Developing**: Begin exploring the codebase, or help structure it as we define the initial architecture.
+
+## Backend Application
+
+LibraryAssembler now ships with a minimal Flask application that provides the
+foundation for future ingestion and automation features. The code lives under
+`src/libraryassembler/` and exposes a standard application factory (`create_app`).
+
+### Running the development server
+
+1. **Set the Flask application module**:
+   ```bash
+   export FLASK_APP=libraryassembler.app
+   ```
+
+2. **Initialise the database** (creates an SQLite database in the project root by default):
+   ```bash
+   flask --app libraryassembler.app init-db
+   ```
+
+3. **Start the server**:
+   ```bash
+   flask --app libraryassembler.app run --debug
+   ```
+
+Once running, you can verify the service with the bundled health-check
+endpoint:
+
+```bash
+curl http://127.0.0.1:5000/api/health
+```
+
+The default configuration stores data in `libraryassembler.db`, but you can
+override this by setting the `DATABASE_URL` environment variable before running
+the application.
+
+### Running tests
+
+The project includes a small test-suite to validate that the Flask factory and
+database bootstrap work correctly:
+
+```bash
+pytest
+```
 
 ## Project Structure
 

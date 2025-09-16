@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "libraryassembler"
+version = "0.1.0"
+description = "Core service for the LibraryAssembler digital library platform."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "Flask>=3.0",
+    "SQLAlchemy>=2.0",
+    "requests>=2.31",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
