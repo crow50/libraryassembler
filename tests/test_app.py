@@ -2,8 +2,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from sqlalchemy import select
+
 from libraryassembler import AppConfig, create_app
-from libraryassembler.database import init_db
+from libraryassembler.database import init_db, session_scope
+from libraryassembler.models import Book
 
 
 def build_test_config(tmp_path: Path) -> AppConfig:
@@ -47,3 +50,20 @@ def test_init_db_cli(tmp_path):
     result = runner.invoke(args=["init-db"])
     assert result.exit_code == 0
     assert "Database initialised." in result.output
+
+
+def test_book_model_can_insert_and_query(tmp_path):
+    app = create_app(build_test_config(tmp_path))
+    db_path = tmp_path / "test.db"
+
+    with app.app_context():
+        init_db()
+        assert db_path.exists()
+
+        with session_scope() as session:
+            session.add(Book(title="Example", author="Author", file_path="/books/example.epub"))
+
+        with session_scope() as session:
+            retrieved = session.execute(select(Book).where(Book.title == "Example")).scalar_one()
+            assert retrieved.author == "Author"
+            assert retrieved.file_path == "/books/example.epub"
