@@ -14,8 +14,13 @@ bp = Blueprint("health", __name__, url_prefix="/api")
 def healthcheck():
     """Return basic application and database health information."""
     session = get_session()
-    media_count = session.scalar(select(func.count(MediaItem.id))) or 0
-    ingestion_count = session.scalar(select(func.count(IngestionJob.id))) or 0
+    counts_stmt = select(
+        select(func.count(MediaItem.id)).scalar_subquery(),
+        select(func.count(IngestionJob.id)).scalar_subquery(),
+    )
+    media_count, ingestion_count = session.execute(counts_stmt).one()
+    media_count = int(media_count or 0)
+    ingestion_count = int(ingestion_count or 0)
     return (
         jsonify(
             {

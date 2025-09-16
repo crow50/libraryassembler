@@ -4,6 +4,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 import os
 from pathlib import Path
+import secrets
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:  # pragma: no cover
@@ -11,6 +12,20 @@ if TYPE_CHECKING:  # pragma: no cover
 
 
 _DEF_DB_FILENAME = "libraryassembler.db"
+
+
+def _default_secret_key() -> str:
+    """Return a secure default secret key.
+
+    The SECRET_KEY environment variable is respected when provided; otherwise a
+    new random value is generated so development instances do not share a
+    predictable secret.
+    """
+
+    env_value = os.getenv("SECRET_KEY")
+    if env_value:
+        return env_value
+    return secrets.token_urlsafe(32)
 
 
 def _default_database_url() -> str:
@@ -32,7 +47,7 @@ class AppConfig:
     """Configuration container with sane defaults for the application."""
 
     app_name: str = "LibraryAssembler"
-    secret_key: str = field(default_factory=lambda: os.getenv("SECRET_KEY", "change-me"))
+    secret_key: str = field(default_factory=_default_secret_key)
     database_url: str = field(default_factory=lambda: os.getenv("DATABASE_URL", _default_database_url()))
     sql_echo: bool = field(default_factory=lambda: _bool_from_env(os.getenv("SQLALCHEMY_ECHO")))
     environment: str = field(default_factory=lambda: os.getenv("FLASK_ENV", os.getenv("ENVIRONMENT", "development")))
