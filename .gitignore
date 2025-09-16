@@ -32,3 +32,4 @@ env/
 .env/
 ENV/
 env.bak/
+*.db
