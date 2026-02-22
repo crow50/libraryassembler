@@ -36,6 +36,11 @@ class LibraryItem(Base):
     title: Mapped[str] = mapped_column(String(255), nullable=False)
     media_type: Mapped[str] = mapped_column(String(50), nullable=False)
     file_path: Mapped[str] = mapped_column(String(1024), nullable=False)
+    isbn: Mapped[str | None] = mapped_column(String(32))
+    cover_url: Mapped[str | None] = mapped_column(String(1024))
+    description: Mapped[str | None] = mapped_column(String(2000))
+    published_date: Mapped[str | None] = mapped_column(String(50))
+    publisher: Mapped[str | None] = mapped_column(String(255))
     added_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.utcnow)
 
     owner_id: Mapped[int] = mapped_column(ForeignKey("users.id"), nullable=False)

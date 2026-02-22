@@ -1,103 +1,96 @@
 # LibraryAssembler
 
-Welcome to **LibraryAssembler**! This project is in its early stages, and I'm excited to build a modern, versatile digital library organizer that will handle not just eBooks, but also magazines, audiobooks, comics, and potentially newspapers. My goal is to create a powerful, intuitive, and feature-rich solution for organizing and discovering digital content.
+Welcome to **LibraryAssembler**! This project is in its early stages and aims to build a modern, versatile digital library organizer that can handle not only eBooks, but also magazines, audiobooks, comics, and potentially newspapers. The goal is to create a powerful, intuitive, and feature-rich solution for organizing and discovering digital content.
 
 ## Project Overview
 
-**LibraryAssembler** is an open-source initiative aimed at creating a new standard for managing digital libraries. Inspired by tools like Sonarr and Radarr, this project seeks to automate and enhance the organization, discovery, and management of various types of digital content.
+**LibraryAssembler** is an open-source initiative to redefine how digital libraries are managed. Taking inspiration from tools like Sonarr and Radarr, the project focuses on automating the organization, discovery, and management of digital content across various formats.
 
-This project is currently in its formation phase, and I am actively seeking input, ideas, and contributions to help shape its direction. Whether you're a developer, designer, or simply passionate about digital content, your involvement is welcome!
+Currently in the planning and development phase, the project welcomes input, ideas, and contributions to help shape its future. Whether you're a developer, designer, or simply passionate about digital content, your involvement is highly valued.
 
 ## Tech Stack
 
-Phase 1 uses a lightweight, modular stack to move quickly while keeping room for growth:
+To ensure flexibility and scalability, the project employs a lightweight, modular tech stack:
 
 - **Backend:** Flask (Python)
 - **Frontend:** React (planned for the web UI)
-- **Database:** SQLAlchemy ORM with SQLite in development and PostgreSQL in production
-- **Testing & Quality:** Pytest + Flake8
+- **Database:** SQLAlchemy ORM with SQLite for development and PostgreSQL for production
+- **Testing & Quality Assurance:** Pytest + Flake8
 - **CI/CD:** GitHub Actions
 
-## Current Status
-
-- **Planning and Design**: I am currently planning the core features, overall architecture, and user experience. This is the perfect time to get involved if you have ideas or want to contribute to the project's direction.
+## Project Status
+- **Planning and Design**: Currently focused on defining core features, architecture, and user experience. This is the perfect stage for contributors to share ideas and guide the projects development.
 - **Feature Ideas**:
-  - **Automated Library Organization**: Concepts for sorting and categorizing content based on metadata, series, and custom tags.
-  - **Metadata Management**: Ideas for retrieving and updating metadata for eBooks, audiobooks, comics, and more.
-  - **Collection and Series Management**: Planning how to organize and manage collections, including series, volumes, and issues.
-  - **Custom Tagging and Filters**: Brainstorming ways to allow users to categorize and filter their content.
-  - **User Interface Design**: Initial wireframes and design ideas for a responsive, mobile-friendly web interface.
+  - **Automated Library Organization**: System for sorting and categorizing content using metadata, series, and custom tags.
+  - **Metadata Management**: Methods for retrieving and updating metadata for a diverse range of content types.
+  - **Collection and Series Management**: Tools to organize and manage collections, series, volumes, and issues effectively.
+  - **Custom Tagging and Filters**: User-friendly tagging and robust filtering for content personalization.
+  - **User Interface Design**: Development of responsive, mobile-friendly web interfaces with a focus on ease of use and accessibility.
 
-## How to Get Involved
+## Getting Involved
 
-Since this project is in its early stages, there are many ways to contribute:
+Since this project is still in its infancy, there are numerous ways to contribute:
 
-- **Share Your Ideas**: Have a feature in mind? Think something could be done differently? [Open an issue](https://github.com/crow50/libraryassembler/issues) to start a discussion.
-- **Join the Conversation**: Check out the [Discussions](https://github.com/crow50/libraryassembler/discussions) tab on GitHub to collaborate with others and help shape the project's future.
-- **Contribute Code**: If you're ready to start coding, take a look at the open issues or propose new features. Early contributions can help set the foundation for the project.
-- **Documentation**: Help me by contributing to the project documentation, even in these early stages, to ensure everything is clear and accessible.
+- **Share Your Ideas**: Have a feature in mind or think something can be improved? [Open an issue](https://github.com/crow50/libraryassembler/issues) on GitHub to contribute.
+- **Join the Conversation**: Collaborate with the community on the [Discussions](https://github.com/crow50/libraryassembler/discussions) tab.
+- **Contribute to Code**: Explore open issues or propose new ones. Early-stage contributions will help lay a strong foundation.
+- **Help with Documentation**: Assist in creating clear, comprehensive documentation to support future contributors and users.
 
-### Initial Setup
+### Setting Up the Project for Development
 
-If you're interested in contributing code, here's how to get started:
+Heres how to start contributing to the LibraryAssembler project:
 
-1. **Clone the Repository**:
+1. Clone the Repository:
    ```bash
    git clone https://github.com/crow50/libraryassembler.git
    cd libraryassembler
    ```
 
-2. **Set Up the Virtual Environment** (Python):
+2. Set Up the Virtual Environment (Python):
    ```bash
    python3 -m venv venv
    source venv/bin/activate  # On Windows use `venv\Scripts\activate`
    ```
 
-3. **Install Dependencies** (to be determined as the project evolves):
+3. Install Dependencies:
    ```bash
    pip install -e .
    ```
 
-4. **Start Developing**: Begin exploring the codebase, or help structure it as we define the initial architecture.
+4. Start Developing: Explore the codebase and begin contributing to the projects structure.
 
 ## Backend Application
 
-LibraryAssembler now ships with a minimal Flask application that provides the
-foundation for future ingestion and automation features. The code lives under
-`src/libraryassembler/` and exposes a standard application factory (`create_app`).
+LibraryAssembler includes a minimal Flask application that forms the basis for advanced ingestion and automation features. The application files reside in the `src/libraryassembler/` directory and provide a standard application factory (`create_app`).
 
-### Running the development server
+### Running the Development Server
 
-1. **Set the Flask application module**:
+1. Set the Flask application module:
    ```bash
    export FLASK_APP=libraryassembler.app
    ```
 
-2. **Initialise the database** (creates an SQLite database in the project root by default):
+2. Initialize the database (creates an SQLite database in the project root by default):
    ```bash
    flask --app libraryassembler.app init-db
    ```
 
-3. **Start the server**:
+3. Start the development server:
    ```bash
    flask --app libraryassembler.app run --debug
    ```
 
-Once running, you can verify the service with the bundled health-check
-endpoint:
+Verify the service using the bundled health-check endpoint:
 
 ```bash
 curl http://127.0.0.1:5000/api/health
 ```
 
-The default configuration stores data in `libraryassembler.db`, but you can
-override this by setting the `DATABASE_URL` environment variable before running
-the application.
+The default configuration uses `libraryassembler.db` to store data. You can override this location by setting the `DATABASE_URL` environment variable before running the application.
 
-### Running tests
+### Running Tests
 
-The project includes a small test-suite to validate that the Flask factory and
-database bootstrap work correctly:
+LibraryAssembler comes with a minimal test suite to validate critical components such as the Flask factory and database initialization. To execute the tests, run:
 
 ```bash
 pytest
@@ -105,22 +98,22 @@ pytest
 
 ## Project Structure
 
-As this project is still forming, the structure is evolving. Current ideas include:
+As the project evolves, so will its structure. The current organization includes:
 
-- **`src/`**: Where the main code will live, including core functionalities, integration points, and user interface components.
-- **`docs/`**: Documentation for developers and users.
-- **`tests/`**: A place for unit and integration tests as they are developed.
+- **`src/`**: Core functionalities, integration points, and UI components.
+- **`docs/`**: Developer and user documentation.
+- **`tests/`**: Unit and integration tests.
 
 ## Contributing
 
-I need your help to bring LibraryAssembler to life! Whether through code, design, documentation, or simply brainstorming, your contributions are crucial.
+Your contribution is crucial for building LibraryAssembler into a robust digital library organizer. Whether you focus on code, design, documentation, or brainstorming concepts, your input is vital.
 
-Please see the [Contributing Guide](CONTRIBUTING.md) for more details on how to get involved.
+Check out the [Contribution Guide](CONTRIBUTING.md) for detailed instructions on getting started.
 
 ## License
 
-This project is licensed under the GPL 3 License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 (GPL-3.0). See the [LICENSE](LICENSE) file for more information.
 
 ## Contact
 
-For questions, ideas, or to get involved, you can reach out by creating an issue or joining the discussion on our GitHub repository.
+For any questions or suggestions, please [open an issue](https://github.com/crow50/libraryassembler/issues) or engage with the community on the [Discussions](https://github.com/crow50/libraryassembler/discussions) page in the repository.
