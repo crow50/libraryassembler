@@ -8,6 +8,16 @@ Welcome to **LibraryAssembler**! This project is in its early stages, and I'm ex
 
 This project is currently in its formation phase, and I am actively seeking input, ideas, and contributions to help shape its direction. Whether you're a developer, designer, or simply passionate about digital content, your involvement is welcome!
 
+## Tech Stack
+
+Phase 1 uses a lightweight, modular stack to move quickly while keeping room for growth:
+
+- **Backend:** Flask (Python)
+- **Frontend:** React (planned for the web UI)
+- **Database:** SQLAlchemy ORM with SQLite in development and PostgreSQL in production
+- **Testing & Quality:** Pytest + Flake8
+- **CI/CD:** GitHub Actions
+
 ## Current Status
 
 - **Planning and Design**: I am currently planning the core features, overall architecture, and user experience. This is the perfect time to get involved if you have ideas or want to contribute to the project's direction.
