@@ -5,8 +5,17 @@ LibraryAssembler aims to become a comprehensive, modern digital library organize
 
 ---
 
+### Target Audience
+LibraryAssembler aims to serve book enthusiasts, archivists, researchers, and organizations managing large digital libraries. The goal is user-centric: accessible to non-technical users, while offering advanced features for power users.
+
+### Collaboration Steps
+- Use `feature/initial-sprint` branch as the starting point for all roles, ensuring smooth commit integration.
+- Conduct cross-team sync meetings to maintain clear communication and alignment.
+
+---
+
 ## Project Roadmap
-The project roadmap consists of various technical, design, and documentation milestones, divided into three primary phases:
+The project roadmap consists of various technical, design, and documentation milestones, divided into three primary phases.
 
 ---
 
