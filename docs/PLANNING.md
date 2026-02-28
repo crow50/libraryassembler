@@ -1,127 +1,94 @@
-# Library Assembler - PLANNING.md
+# Library Assembler: PLANNING
 
-#### **Project Vision**
-LibraryAssembler aims to be a modern and comprehensive digital library organizer for various types of media, including eBooks, audiobooks, comics, magazines, and more. The project takes inspiration from management tools like Sonarr and Radarr, emphasizing automation, metadata enrichment, and a user-friendly interface.
+## Project Vision
+LibraryAssembler aims to become a comprehensive, modern digital library organizer for managing various types of media, such as eBooks, audiobooks, comics, and magazines. Modeled after tools like Sonarr and Radarr, the project emphasizes automation, metadata enrichment, and an intuitive user interface for an improved user experience.
 
 ---
 
-## **Project Roadmap**
-The following tasks and milestones are organized into technical (Engineering), design (UI/UX), and documentation deliverables:
+### Target Audience
+LibraryAssembler aims to serve book enthusiasts, archivists, researchers, and organizations managing large digital libraries. The goal is user-centric: accessible to non-technical users, while offering advanced features for power users.
+
+### Collaboration Steps
+- Use `feature/initial-sprint` branch as the starting point for all roles, ensuring smooth commit integration.
+- Conduct cross-team sync meetings to maintain clear communication and alignment.
+
+---
+
+## Project Roadmap
+The project roadmap consists of various technical, design, and documentation milestones, divided into three primary phases.
 
 ---
 
 ### **Phase 1: Foundational Setup**
 **Timeline: 2-3 Weeks**
 
-1. **Technical (Engineer)**
-    - Finalize application architecture.
-        - Define technology stack (Python Flask/Microservices for backend, React.js or equivalent for frontend, etc.).
-        - Establish database schema structure for metadata, library collections, and user settings.
-    - Implement and test initial API routes:
-        - User authentication and session management.
-        - Health check endpoint verification (`/api/health` as a POC is already implemented but expand to encompass more status checks).
-        - Basic CRUD operations for user accounts, library items, and metadata input.
-    - Establish CI/CD pipelines using GitHub Actions:
-        - Linting, testing, and code coverage integration.
-        - Deploy to a sandbox/cloud environment.
+**Technical:**
+- Finalize the application architecture.
+- Identify and solidify the technology stack (e.g., Flask backend, React frontend, etc.).
+- Define the database schema for metadata, library collections, and preferences.
+- Develop core API routes, including user authentication and CRUD operations for library items.
+- Implement Continuous Integration/Continuous Deployment (CI/CD) pipelines utilizing GitHub Actions for testing, linting, coverage, and deployment.
 
-2. **Design (Designer)**
-    - Create basic wireframes for:
-        - Library dashboard (user-friendly UI to access, search, and view collections).
-        - Content detail pages for individual eBooks, audiobooks, or comics.
-        - User settings/preferences and metadata management interface flows.
+**Design:**
+- Draft wireframes for the library dashboard, content pages, and metadata management sections.
 
-3. **Documentation (Writer)**
-    - Draft the **Project Architecture Document**:
-        - High-level description of the backend (Flask) and how it integrates with API.
-        - Explanation of the database schema and relationships.
-    - Write **Setup and Contribution Guide** to support new contributors, covering:
-        - Project structure overview (referencing ideas from `README.md` and improving them).
-        - Clear instructions on setting up a local development environment.
-    - Draft initial **User Guide** with instructions on project installation, server setup, and initial use case.
+**Documentation:**
+- Write a **Project Architecture Document** detailing the backend architecture and database schema.
+- Prepare setup and contribution documentation, outlining the project's structure and how to set up the development environment.
+- Draft an initial **User Guide** covering the installation process and initial setup instructions.
 
 ---
 
-### **Phase 2: Metadata Management and Organization Automation**
+### **Phase 2: Metadata Management and Organizational Features**
 **Timeline: 4-6 Weeks**
 
-1. **Technical (Engineer)**
-    - Design and develop a metadata fetching system:
-        - Integrate with common APIs/databases (e.g., Amazon, Audible, Goodreads, OpenLibrary, Google Books) for metadata retrieval.
-        - Create API endpoints to search, fetch, and update metadata.
-    - Build basic library organization features:
-        - Support folder/file monitoring for content and sync updates to the library.
-        - Implement rules for categorizing into genres, authors, series, and tags.
-        - Establish logging for debugging organization issues.
-        
-2. **Design (Designer)**
-    - Develop a clickable prototype for user feedback, focusing on:
-        - The library interface for viewing, searching, and managing files.
-        - The streamlined metadata display (title, author, cover image, series) on card-based layouts.
-        - Intuitive configurations for automatic sorting rules and metadata fetching setups.
+**Technical:**
+- Develop metadata fetching capabilities from APIs/databases like OpenLibrary, Google Books, etc.
+- Build basic library organization features:
+  - Automatic content syncing from monitored folders.
+  - Organization based on customizable rules for categories, genres, tags, and series.
+- Create logging systems to debug and track organization tasks.
+- Design customized solutions for allowing users to manually input metadata.
 
-3. **Documentation (Writer)**
-    - Document required metadata fields based on supported APIs (category, title, author, tags, date published, etc.).
-    - Detail API design specifications, including request/response examples for:
-        - Retrieving metadata for a single file or batch of files.
-        - Searching and selecting metadata from external API sources.
-        - Managing user-specific metadata (preferences, custom tags, etc.).
+**Design:**
+- Create interactive prototypes and solicit user feedback.
+- Develop user-friendly interfaces displaying sorted library results and metadata.
+- Design configurations for customizable metadata-fetching rules.
+
+**Documentation:**
+- Specify guidelines for proper labeling and storage of content metadata, including valid formats.
+- Develop API documentation, covering endpoints for metadata retrieval, search, update, and management.
+- Enhance install/setup instructions as new features are developed.
 
 ---
 
-### **Phase 3: Advanced Features & Enhanced User Experience**
+### **Phase 3: Advanced Features and Enhanced User Experience**
 **Timeline: 8-12 Weeks**
 
-1. **Technical (Engineer)**
-    - Implement advanced features like:
-        - Bulk editing of metadata.
-        - Synchronization with cloud storage (e.g., Google Drive, Dropbox).
-        - Advanced custom tagging and filtering options within the library.
-    - Implement pagination and search functionality for large libraries.
-    - Begin integrating third-party libraries for eBook, audiobook, and comic file previews:
-        - E.g., embedded PDF/ePub readers, audio players, comic viewer.
+**Technical:**
+- Implement bulk metadata editing functionality.
+- Develop cloud integration interfaces with storage solutions (e.g., Google Drive, Dropbox).
+- Create advanced filtering options for content navigation based on user-defined tags.
+- Improve backend scalability to handle large libraries with extensive tags, metadata.
+- Include support for integrated content preview for major file types like eBooks and audiobooks.
 
-2. **Design (Designer)**
-    - Finalize a responsive web interface.
-    - Design user onboarding experience (covering setup, connecting library, and customization).
+**Design:**
+- Finalize responsive UI designs for both mobile and desktop platforms.
+- Design a seamless onboarding process for new users.
 
-3. **Documentation (Writer)**
-    - Build detailed tutorials for cloud storage synchronization and third-party API configuration (e.g., OpenLibrary, Goodreads login).
-    - Write API endpoint usage examples.
-    - Prepare documentation on how advanced features (e.g., tagging) work.
----
+**Documentation:**
+- Create detailed tutorials for advanced configuration, tagging, and cloud storage integration.
+- Update API documentation for new, advanced endpoints and functionalities.
+- Provide user-centric tutorials for improved navigation.
 
-#### Specific Task Assignments
-
-**Writer:**
-- Project Architecture Document (overview of backend and database schema).
-- Documentation for contributor onboarding, including local development setup.
-- User Guide with installation and setup steps.
-- API documentation for current and planned features.
-- Guides for setting up integrations (metadata APIs, cloud storage).
-
-**Designer:**
-- Dashboard wireframes showcasing file sorting results and search interface.
-- Library browse and organization UI (including cards, tags, categories).
-- Settings UI for metadata and library sync control.
-- Preparation of interactive mockups for feedback loops with stakeholders.
-
-**Engineer:**
-- Expand Flask app:
-    - User authentication and session handling.
-    - Database schema setup (`books`, `audiobooks`, `tags`, `collections`, `users` tables).
-    - Metadata fetching and API integration (OpenLibrary, Goodreads, etc.).
-    - Core library organization logic (ingestion, categorization, logging).
-    - Implement basic backend tests for each service.
-
-- Implement CI/CD pipelines for rapid integration.
-- Improve application error handling/logging mechanisms.
+## Deliverables Round-Up
+**MVP Scope Includes:**
+1. Intuitive interface for library navigation and metadata management.
+2. Robust metadata integration system supporting multiple sources.
+3. Basic automatic library organization system.
+4. Fundamental API and database structures for long-term extensibility.
+5. Comprehensive contribution guidance for developers.
 
 ---
 
-#### MVP Release Scope
-LibraryAssembler's MVP (Minimum Viable Product) should emphasize:
-1. Intuitive library ingestion and organization for key media types (eBooks, Comics, Audiobooks).
-2. Metadata fetching with configurable tagging rules.
-3. A basic web-based UI offering a library dashboard, search functionalities, and a content detail view.
-4. Integrated test coverage and CI/CD pipelines supporting contributors in expanding the features.
+Stay tuned for the latest updates and join the community on GitHub Discussions!
